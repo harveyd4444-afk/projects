@@ -1,0 +1,339 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>n8n Integration: HubSpot Safety Gate &amp; AI Sales Brief</title>
+<link rel="stylesheet" href="css/styles.css">
+<style>
+body { margin: 0; }
+.btn { white-space: nowrap; }
+.tag { white-space: nowrap; }
+a { color: var(--color-accent); }
+a:hover { color: var(--color-accent-700); }
+code { font-size: 0.9em; background: color-mix(in srgb, var(--color-text) 7%, transparent); padding: 1px 5px; overflow-wrap: anywhere; }
+.kw { font-weight: 700; color: var(--color-accent-700); background: color-mix(in srgb, var(--color-accent) 12%, transparent); padding: 0 4px; white-space: nowrap; }
+</style>
+</head>
+<body>
+<div style="background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); min-height: 100vh;">
+
+  <div class="nav" style="position: sticky; top: 0; z-index: 10; background: var(--color-bg); display: flex; flex-wrap: wrap;">
+    <a class="nav-brand" href="index.html" style="text-decoration: none; color: inherit;">Automation Portfolio</a>
+    <span style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 55%, transparent);">CRM &amp; HubSpot &middot; n8n integration</span>
+  </div>
+
+  <div style="max-width: 1180px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 56px);">
+
+    <header style="padding: clamp(40px, 7vw, 88px) 0 clamp(28px, 4vw, 44px);">
+      <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px;">
+        <span class="tag tag-accent">n8n</span>
+        <span class="tag tag-accent">HubSpot API</span>
+        <span class="tag tag-accent">PostgreSQL</span>
+        <span class="tag tag-neutral">JavaScript</span>
+        <span class="tag tag-neutral">Google Gemini</span>
+      </div>
+      <h1 style="font-size: clamp(38px, 7vw, 76px); line-height: 1.02; letter-spacing: -0.03em; max-width: 20ch; margin: 0 0 16px;">n8n Integration: HubSpot Safety Gate &amp; AI Sales Brief.</h1>
+      <p style="font-size: clamp(17px, 2.2vw, 22px); font-weight: 600; margin: 0 0 20px; max-width: 48ch; color: var(--color-accent-700);">An n8n and HubSpot integration that checks contacts are safe to email and researches each company before a sales call.</p>
+      <p style="font-size: clamp(15px, 1.6vw, 18px); max-width: 64ch; line-height: 1.7; margin: 0; text-wrap: pretty; color: color-mix(in srgb, var(--color-text) 80%, transparent);">When a company scores highly against the ICP, HubSpot marks its decision-makers as Ready. <span class="kw">n8n</span> polls the <span class="kw">HubSpot API</span> for those contacts, runs five safety checks in <span class="kw">JavaScript</span>, writes the result back to HubSpot and logs it to <span class="kw">PostgreSQL</span>. For companies that pass, it reads the website with <span class="kw">Jina</span> and <span class="kw">Gemini</span> and posts a sales brief to the company record.</p>
+    </header>
+
+    <section style="border-top: 2px solid var(--color-divider); padding: clamp(28px, 4vw, 44px) 0 clamp(44px, 6vw, 72px);">
+      <h6 style="color: var(--color-accent); margin-bottom: 14px;">01 &mdash; Overview</h6>
+      <div style="display: flex; flex-direction: column;">
+        <div style="display: flex; flex-wrap: wrap; gap: 8px clamp(24px, 4vw, 48px); padding: 18px 0; border-top: 1px solid var(--color-divider);">
+          <h4 style="margin: 0; font-size: 17px; flex: 1 1 180px;">The problem</h4>
+          <div style="flex: 3 1 420px; min-width: 0; font-size: 15px; line-height: 1.6; max-width: 64ch;"><p style="margin: 0;">Before reaching out, it is important for an SDR to know about each practice: what it offers, what it charges and who to speak to. Researching every practice&rsquo;s website by hand takes time, and without that research, calls and emails tend to be generic.</p></div>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px clamp(24px, 4vw, 48px); padding: 18px 0; border-top: 1px solid var(--color-divider);">
+          <h4 style="margin: 0; font-size: 17px; flex: 1 1 180px;">The solution</h4>
+          <div style="flex: 3 1 420px; min-width: 0; font-size: 15px; line-height: 1.6; max-width: 64ch;"><p style="margin: 0;">Built with SDRs in mind, this workflow takes manual account research off their plate. Instead of searching each practice&rsquo;s website before reaching out, an SDR opens the company record in HubSpot and finds a sales brief already waiting, covering the practice&rsquo;s services, prices, team size, current offers and the payment options they use. The brief includes talking points tied to real facts from the website, so calls and emails can be specific to that practice rather than generic. It also suggests the best way to get in touch, using whatever the website shows, such as the main phone number, an enquiry form or, where staff are listed, the practice manager&rsquo;s name, so the SDR knows who to ask for when they call.</p></div>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px clamp(24px, 4vw, 48px); padding: 18px 0; border-top: 1px solid var(--color-divider);">
+          <h4 style="margin: 0; font-size: 17px; flex: 1 1 180px;">Why polling</h4>
+          <div style="flex: 3 1 420px; min-width: 0; font-size: 15px; line-height: 1.6; max-width: 64ch;"><p style="margin: 0;"><span class="kw">n8n</span> runs locally, so HubSpot can&rsquo;t push events to it. Instead, n8n polls the <span class="kw">HubSpot API</span> on a schedule (a manual trigger while testing) for contacts whose custom <strong>Outbound status</strong> property is <strong>Ready</strong>.</p></div>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 8px clamp(24px, 4vw, 48px); padding: 18px 0; border-top: 1px solid var(--color-divider); border-bottom: 1px solid var(--color-divider);">
+          <h4 style="margin: 0; font-size: 17px; flex: 1 1 180px;">Data</h4>
+          <div style="flex: 3 1 420px; min-width: 0; font-size: 15px; line-height: 1.6; max-width: 64ch;"><p style="margin: 0;">Synthetic HubSpot dataset of Greater Manchester dental practices. The website research was tested on a real Manchester dental practice&rsquo;s website.</p></div>
+        </div>
+      </div>
+    </section>
+
+    <section style="border-top: 2px solid var(--color-divider); padding: clamp(44px, 6vw, 80px) 0;">
+      <h6 style="color: var(--color-accent); margin-bottom: 14px;">02 &mdash; How it works</h6>
+      <h2 style="font-size: clamp(26px, 3.4vw, 36px); margin-bottom: 8px; max-width: 26ch;">The workflow, step by step.</h2>
+      <p style="font-size: 15px; color: color-mix(in srgb, var(--color-text) 70%, transparent); max-width: 62ch; margin-bottom: clamp(28px, 4vw, 40px);">Each box shows which tool does the step. The dashed box is where a contact leaves the flow.</p>
+      <div style="max-width: 760px; margin: 0 auto clamp(36px, 5vw, 56px); display: flex; flex-direction: column; align-items: stretch;">
+        <div style="border: 2px solid var(--color-text); background: var(--color-bg); padding: 14px 18px; box-sizing: border-box; width: 100%;">
+            <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px;"><span class="tag tag-outline">HubSpot</span></div>
+            <h4 style="margin: 0 0 4px; font-size: 17px; line-height: 1.25;">High ICP score</h4>
+            <p style="margin: 0; font-size: 14px; line-height: 1.5; color: color-mix(in srgb, var(--color-text) 72%, transparent);">A company scores above 70 against the ideal customer profile.</p>
+          </div>
+        <div aria-hidden="true" style="display: flex; flex-direction: column; align-items: center; padding: 6px 0;"><div style="width: 2px; height: 22px; background: color-mix(in srgb, var(--color-text) 55%, transparent);"></div><div style="width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; border-top: 9px solid color-mix(in srgb, var(--color-text) 55%, transparent);"></div></div>
+        <div style="border: 2px solid var(--color-text); background: var(--color-bg); padding: 14px 18px; box-sizing: border-box; width: 100%;">
+            <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px;"><span class="tag tag-outline">HubSpot workflow</span></div>
+            <h4 style="margin: 0 0 4px; font-size: 17px; line-height: 1.25;">Contacts marked Ready</h4>
+            <p style="margin: 0; font-size: 14px; line-height: 1.5; color: color-mix(in srgb, var(--color-text) 72%, transparent);">Decision-makers get the custom Outbound status property set to Ready.</p>
+          </div>
+        <div aria-hidden="true" style="display: flex; flex-direction: column; align-items: center; padding: 6px 0;"><div style="width: 2px; height: 22px; background: color-mix(in srgb, var(--color-text) 55%, transparent);"></div><div style="width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; border-top: 9px solid color-mix(in srgb, var(--color-text) 55%, transparent);"></div></div>
+        <div style="border: 2px solid var(--color-text); background: var(--color-bg); padding: 14px 18px; box-sizing: border-box; width: 100%;">
+            <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px;"><span class="tag tag-outline">n8n &rarr; HubSpot API</span></div>
+            <h4 style="margin: 0 0 4px; font-size: 17px; line-height: 1.25;">n8n polls HubSpot</h4>
+            <p style="margin: 0; font-size: 14px; line-height: 1.5; color: color-mix(in srgb, var(--color-text) 72%, transparent);">Searches for Ready contacts, then follows each contact to its company.</p>
+          </div>
+        <div aria-hidden="true" style="display: flex; flex-direction: column; align-items: center; padding: 6px 0;"><div style="width: 2px; height: 22px; background: color-mix(in srgb, var(--color-text) 55%, transparent);"></div><div style="width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; border-top: 9px solid color-mix(in srgb, var(--color-text) 55%, transparent);"></div></div>
+        <div style="border: 2px solid var(--color-text); background: var(--color-bg); padding: 14px 18px; box-sizing: border-box; width: 100%;">
+            <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px;"><span class="tag tag-outline">n8n &middot; JavaScript</span></div>
+            <h4 style="margin: 0 0 4px; font-size: 17px; line-height: 1.25;">Safety gate: 5 checks</h4>
+            <p style="margin: 0; font-size: 14px; line-height: 1.5; color: color-mix(in srgb, var(--color-text) 72%, transparent);">Valid email, not opted out, not a customer, no open deal, not contacted in 30 days.</p>
+          </div>
+        <div aria-hidden="true" style="display: flex; flex-direction: column; align-items: center; padding: 6px 0;"><div style="width: 2px; height: 22px; background: color-mix(in srgb, var(--color-text) 55%, transparent);"></div><div style="width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; border-top: 9px solid color-mix(in srgb, var(--color-text) 55%, transparent);"></div></div>
+        <div style="border: 2px solid var(--color-text); background: var(--color-bg); padding: 14px 18px; box-sizing: border-box; width: 100%;">
+            <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px;"><span class="tag tag-outline">n8n &rarr; PostgreSQL</span></div>
+            <h4 style="margin: 0 0 4px; font-size: 17px; line-height: 1.25;">Decision logged</h4>
+            <p style="margin: 0; font-size: 14px; line-height: 1.5; color: color-mix(in srgb, var(--color-text) 72%, transparent);">Every decision is written to the safety_gate_log table.</p>
+          </div>
+        <div style="display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 clamp(12px, 3vw, 32px);">
+          <div style="display: flex; flex-direction: column; align-items: stretch;">
+            <div aria-hidden="true" style="display: flex; flex-direction: column; align-items: center; padding: 6px 0;"><div style="width: 2px; height: 22px; background: color-mix(in srgb, var(--color-text) 55%, transparent);"></div><div style="width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; border-top: 9px solid color-mix(in srgb, var(--color-text) 55%, transparent);"></div></div>
+            <div style="border: 2px solid var(--color-accent); background: color-mix(in srgb, var(--color-accent) 8%, var(--color-bg)); padding: 14px 18px; box-sizing: border-box; width: 100%;">
+            <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px;"><span class="tag tag-accent">Pass</span><span class="tag tag-outline">n8n &rarr; HubSpot API</span></div>
+            <h4 style="margin: 0 0 4px; font-size: 17px; line-height: 1.25;">Approved</h4>
+            <p style="margin: 0; font-size: 14px; line-height: 1.5; color: color-mix(in srgb, var(--color-text) 72%, transparent);">Written back to the contact with a PATCH request.</p>
+          </div>
+            <div aria-hidden="true" style="display: flex; flex-direction: column; align-items: center; padding: 6px 0;"><div style="width: 2px; height: 22px; background: color-mix(in srgb, var(--color-text) 55%, transparent);"></div><div style="width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; border-top: 9px solid color-mix(in srgb, var(--color-text) 55%, transparent);"></div></div>
+            <div style="border: 2px solid var(--color-text); background: var(--color-bg); padding: 14px 18px; box-sizing: border-box; width: 100%;">
+            <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px;"><span class="tag tag-outline">n8n &middot; Jina &middot; Gemini</span></div>
+            <h4 style="margin: 0 0 4px; font-size: 17px; line-height: 1.25;">Website research</h4>
+            <p style="margin: 0; font-size: 14px; line-height: 1.5; color: color-mix(in srgb, var(--color-text) 72%, transparent);">Reads the site, picks up to 6 pages, rejects invented URLs.</p>
+          </div>
+            <div aria-hidden="true" style="display: flex; flex-direction: column; align-items: center; padding: 6px 0;"><div style="width: 2px; height: 22px; background: color-mix(in srgb, var(--color-text) 55%, transparent);"></div><div style="width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; border-top: 9px solid color-mix(in srgb, var(--color-text) 55%, transparent);"></div></div>
+            <div style="border: 2px solid var(--color-accent); background: color-mix(in srgb, var(--color-accent) 8%, var(--color-bg)); padding: 14px 18px; box-sizing: border-box; width: 100%;">
+            <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px;"><span class="tag tag-outline">n8n &rarr; HubSpot API</span></div>
+            <h4 style="margin: 0 0 4px; font-size: 17px; line-height: 1.25;">Sales brief posted</h4>
+            <p style="margin: 0; font-size: 14px; line-height: 1.5; color: color-mix(in srgb, var(--color-text) 72%, transparent);">Saved as a note on the company record.</p>
+          </div>
+          </div>
+          <div style="display: flex; flex-direction: column; align-items: stretch;">
+            <div aria-hidden="true" style="display: flex; flex-direction: column; align-items: center; padding: 6px 0;"><div style="width: 2px; height: 22px; background: color-mix(in srgb, var(--color-text) 55%, transparent);"></div><div style="width: 0; height: 0; border-left: 7px solid transparent; border-right: 7px solid transparent; border-top: 9px solid color-mix(in srgb, var(--color-text) 55%, transparent);"></div></div>
+            <div style="border: 2px dashed color-mix(in srgb, var(--color-text) 45%, transparent); background: var(--color-bg); padding: 14px 18px; box-sizing: border-box; width: 100%;">
+            <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 8px;"><span class="tag tag-accent">Fail</span><span class="tag tag-outline">n8n &rarr; HubSpot API</span></div>
+            <h4 style="margin: 0 0 4px; font-size: 17px; line-height: 1.25;">Blocked + reason</h4>
+            <p style="margin: 0; font-size: 14px; line-height: 1.5; color: color-mix(in srgb, var(--color-text) 72%, transparent);">Written back to the contact. Not emailed, not researched.</p>
+          </div>
+          </div>
+        </div>
+      </div>
+      <figure style="margin: 0;">
+          <div style="border: 2px solid var(--color-text);"><img src="uploads/outbound/n8n-full-canvas.png" alt="The full n8n workflow: safety gate, website research and sales brief" style="display: block; width: 100%; height: auto;"></div>
+          <figcaption style="font-size: 13px; margin-top: 10px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">The full workflow in three labelled stages: safety gate, website research, sales brief to HubSpot.</figcaption>
+        </figure>
+    </section>
+
+    <section style="border-top: 2px solid var(--color-divider); padding: clamp(44px, 6vw, 80px) 0;">
+      <h6 style="color: var(--color-accent); margin-bottom: 14px;">03 &mdash; Safety gate</h6>
+      <h2 style="font-size: clamp(26px, 3.4vw, 36px); margin-bottom: 8px; max-width: 26ch;">Checking each contact through the HubSpot API.</h2>
+      <p style="font-size: 15px; color: color-mix(in srgb, var(--color-text) 70%, transparent); max-width: 62ch; margin-bottom: clamp(28px, 4vw, 40px);">Built with HTTP Request nodes calling the <span class="kw">HubSpot API</span> directly. Every call was tested in <span class="kw">Postman</span> first.</p>
+      <div style="display: flex; flex-direction: column; margin-bottom: clamp(28px, 4vw, 40px);">
+        <div style="display: grid; grid-template-columns: minmax(56px, 90px) 1fr; gap: clamp(16px, 3vw, 36px); padding: clamp(18px, 2.6vw, 28px) 0; border-top: 2px solid var(--color-divider);">
+          <div style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(28px, 3.6vw, 40px); line-height: 0.9; letter-spacing: -0.03em; color: var(--color-accent);">01</div>
+          <div>
+            <h4 style="margin: 0 0 6px; font-size: clamp(18px, 2.1vw, 21px);">Search for Ready contacts</h4>
+            <p style="margin: 0; font-size: 15px; line-height: 1.6; max-width: 60ch; color: color-mix(in srgb, var(--color-text) 80%, transparent);"><code>POST /crm/v3/objects/contacts/search</code> filtered on Outbound status = Ready. A Split Out node turns the list into one item per contact.</p>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: minmax(56px, 90px) 1fr; gap: clamp(16px, 3vw, 36px); padding: clamp(18px, 2.6vw, 28px) 0; border-top: 1px solid var(--color-divider);">
+          <div style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(28px, 3.6vw, 40px); line-height: 0.9; letter-spacing: -0.03em; color: var(--color-accent);">02</div>
+          <div>
+            <h4 style="margin: 0 0 6px; font-size: clamp(18px, 2.1vw, 21px);">Follow the contact to its company</h4>
+            <p style="margin: 0; font-size: 15px; line-height: 1.6; max-width: 60ch; color: color-mix(in srgb, var(--color-text) 80%, transparent);"><code>GET /crm/v4/objects/contacts/{id}/associations/companies</code> uses <span class="kw">HubSpot associations</span> to find the company ID, then <code>GET /crm/v3/objects/companies/{id}</code> reads the company.</p>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: minmax(56px, 90px) 1fr; gap: clamp(16px, 3vw, 36px); padding: clamp(18px, 2.6vw, 28px) 0; border-top: 1px solid var(--color-divider); background: color-mix(in srgb, var(--color-text) 4%, transparent);">
+          <div style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(28px, 3.6vw, 40px); line-height: 0.9; letter-spacing: -0.03em; color: var(--color-accent);">03</div>
+          <div>
+            <h4 style="margin: 0 0 6px; font-size: clamp(18px, 2.1vw, 21px);">Run five checks</h4>
+            <p style="margin: 0; font-size: 15px; line-height: 1.6; max-width: 60ch; color: color-mix(in srgb, var(--color-text) 80%, transparent);">A <span class="kw">JavaScript</span> Code node checks: valid email, not opted out, not an existing customer, no open deal, not contacted in the last 30 days. It returns a decision and a reason code that matches a HubSpot dropdown.</p>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: minmax(56px, 90px) 1fr; gap: clamp(16px, 3vw, 36px); padding: clamp(18px, 2.6vw, 28px) 0; border-top: 1px solid var(--color-divider);">
+          <div style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(28px, 3.6vw, 40px); line-height: 0.9; letter-spacing: -0.03em; color: var(--color-accent);">04</div>
+          <div>
+            <h4 style="margin: 0 0 6px; font-size: clamp(18px, 2.1vw, 21px);">Write the decision back</h4>
+            <p style="margin: 0; font-size: 15px; line-height: 1.6; max-width: 60ch; color: color-mix(in srgb, var(--color-text) 80%, transparent);">An IF node sends the contact to &ldquo;Mark approved&rdquo; or &ldquo;Mark blocked&rdquo;, each a <code>PATCH</code> request to the <span class="kw">HubSpot API</span>.</p>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: minmax(56px, 90px) 1fr; gap: clamp(16px, 3vw, 36px); padding: clamp(18px, 2.6vw, 28px) 0; border-top: 1px solid var(--color-divider); border-bottom: 2px solid var(--color-divider);">
+          <div style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(28px, 3.6vw, 40px); line-height: 0.9; letter-spacing: -0.03em; color: var(--color-accent);">05</div>
+          <div>
+            <h4 style="margin: 0 0 6px; font-size: clamp(18px, 2.1vw, 21px);">Log the decision</h4>
+            <p style="margin: 0; font-size: 15px; line-height: 1.6; max-width: 60ch; color: color-mix(in srgb, var(--color-text) 80%, transparent);">Every decision is inserted into a <span class="kw">PostgreSQL</span> table, <code>safety_gate_log</code>, with a timestamp, contact, company, decision and reason.</p>
+          </div>
+        </div>
+      </div>
+      <p style="font-size: 15px; line-height: 1.6; max-width: 64ch; margin: 0 0 clamp(28px, 4vw, 40px); padding: 14px 18px; border-left: 4px solid var(--color-accent); background: color-mix(in srgb, var(--color-text) 4%, transparent);"><strong>Fewer API calls:</strong> the workflow reads HubSpot&rsquo;s calculated &ldquo;Number of open deals&rdquo; property on the company instead of fetching every deal.</p>
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+        <figure style="margin: 0;">
+          <div style="border: 2px solid var(--color-text);"><img src="uploads/outbound/n8n-safety-gate-v2.png" alt="n8n safety gate: search Ready contacts, Split Out, get company, safety checks, approve or block, log to Postgres" style="display: block; width: 100%; height: auto;"></div>
+          <figcaption style="font-size: 13px; margin-top: 10px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">The safety gate: search Ready contacts, fetch the company, run 5 checks, write the decision back, log it.</figcaption>
+        </figure>
+        <div style="max-width: 720px;">
+          <figure style="margin: 0;">
+          <div style="border: 2px solid var(--color-text);"><img src="uploads/outbound/postman-search.png" alt="Postman request to the HubSpot contacts search API returning 200 OK" style="display: block; width: 100%; height: auto;"></div>
+          <figcaption style="font-size: 13px; margin-top: 10px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">Testing the HubSpot search API in Postman before building it in n8n.</figcaption>
+        </figure>
+        </div>
+        <figure style="margin: 0;">
+          <div style="border: 2px solid var(--color-text); overflow-x: auto;"><img src="uploads/outbound/n8n-split-out.png" alt="n8n Split Out node turning HubSpot results into one item per contact" style="display: block; width: 100%; min-width: 720px; height: auto;"></div>
+          <figcaption style="font-size: 13px; margin-top: 10px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">Split Out turns HubSpot&rsquo;s list of contacts into one item per contact.</figcaption>
+        </figure>
+        <figure style="margin: 0;">
+          <div style="border: 2px solid var(--color-text); overflow-x: auto;"><img src="uploads/outbound/n8n-contact-to-company.png" alt="n8n HTTP Request following the contact-to-company association" style="display: block; width: 100%; min-width: 720px; height: auto;"></div>
+          <figcaption style="font-size: 13px; margin-top: 10px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">Following HubSpot associations from the contact ID to the company ID.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section style="border-top: 2px solid var(--color-divider); padding: clamp(44px, 6vw, 80px) 0;">
+      <h6 style="color: var(--color-accent); margin-bottom: 14px;">04 &mdash; Audit log</h6>
+      <h2 style="font-size: clamp(26px, 3.4vw, 36px); margin-bottom: 8px; max-width: 26ch;">Every decision stored in PostgreSQL.</h2>
+      <p style="font-size: 15px; color: color-mix(in srgb, var(--color-text) 70%, transparent); max-width: 62ch; margin-bottom: clamp(28px, 4vw, 40px);">A <span class="kw">PostgreSQL</span> table gives a record of who was approved or blocked and why, which can be queried with <span class="kw">SQL</span>. Managed in <span class="kw">DBeaver</span>.</p>
+      <figure style="margin: 0;">
+          <div style="border: 2px solid var(--color-text); overflow-x: auto;"><img src="uploads/outbound/dbeaver-safety-log.png" alt="PostgreSQL safety_gate_log table in DBeaver with one blocked and one approved row" style="display: block; width: 100%; min-width: 720px; height: auto;"></div>
+          <figcaption style="font-size: 13px; margin-top: 10px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">Every decision logged to PostgreSQL.</figcaption>
+        </figure>
+    </section>
+
+    <section style="border-top: 2px solid var(--color-divider); padding: clamp(44px, 6vw, 80px) 0;">
+      <h6 style="color: var(--color-accent); margin-bottom: 14px;">05 &mdash; Website research and sales brief</h6>
+      <h2 style="font-size: clamp(26px, 3.4vw, 36px); margin-bottom: 8px; max-width: 26ch;">Building a brief from the company&rsquo;s own website.</h2>
+      <p style="font-size: 15px; color: color-mix(in srgb, var(--color-text) 70%, transparent); max-width: 62ch; margin-bottom: clamp(28px, 4vw, 40px);">Runs only for approved companies. <span class="kw">n8n</span> reads the website with <span class="kw">Jina</span>, uses <span class="kw">Gemini</span> to choose pages and extract facts, and posts the result through the <span class="kw">HubSpot API</span>.</p>
+      <div style="display: flex; flex-direction: column; margin-bottom: clamp(28px, 4vw, 40px);">
+        <div style="display: grid; grid-template-columns: minmax(56px, 90px) 1fr; gap: clamp(16px, 3vw, 36px); padding: clamp(18px, 2.6vw, 28px) 0; border-top: 2px solid var(--color-divider);">
+          <div style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(28px, 3.6vw, 40px); line-height: 0.9; letter-spacing: -0.03em; color: var(--color-accent);">01</div>
+          <div>
+            <h4 style="margin: 0 0 6px; font-size: clamp(18px, 2.1vw, 21px);">Research each practice once</h4>
+            <p style="margin: 0; font-size: 15px; line-height: 1.6; max-width: 60ch; color: color-mix(in srgb, var(--color-text) 80%, transparent);">Duplicate companies are removed, so several contacts at one practice trigger one research run.</p>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: minmax(56px, 90px) 1fr; gap: clamp(16px, 3vw, 36px); padding: clamp(18px, 2.6vw, 28px) 0; border-top: 1px solid var(--color-divider);">
+          <div style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(28px, 3.6vw, 40px); line-height: 0.9; letter-spacing: -0.03em; color: var(--color-accent);">02</div>
+          <div>
+            <h4 style="margin: 0 0 6px; font-size: clamp(18px, 2.1vw, 21px);">Read the website</h4>
+            <p style="margin: 0; font-size: 15px; line-height: 1.6; max-width: 60ch; color: color-mix(in srgb, var(--color-text) 80%, transparent);"><span class="kw">Jina</span> reads the homepage and collects its links. <span class="kw">Gemini</span> picks up to 6 pages from the real link list.</p>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: minmax(56px, 90px) 1fr; gap: clamp(16px, 3vw, 36px); padding: clamp(18px, 2.6vw, 28px) 0; border-top: 1px solid var(--color-divider); background: color-mix(in srgb, var(--color-text) 4%, transparent);">
+          <div style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(28px, 3.6vw, 40px); line-height: 0.9; letter-spacing: -0.03em; color: var(--color-accent);">03</div>
+          <div>
+            <h4 style="margin: 0 0 6px; font-size: clamp(18px, 2.1vw, 21px);">Reject invented URLs</h4>
+            <p style="margin: 0; font-size: 15px; line-height: 1.6; max-width: 60ch; color: color-mix(in srgb, var(--color-text) 80%, transparent);">A validation step drops any URL the AI made up. Failed pages are skipped without stopping the run.</p>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: minmax(56px, 90px) 1fr; gap: clamp(16px, 3vw, 36px); padding: clamp(18px, 2.6vw, 28px) 0; border-top: 1px solid var(--color-divider);">
+          <div style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(28px, 3.6vw, 40px); line-height: 0.9; letter-spacing: -0.03em; color: var(--color-accent);">04</div>
+          <div>
+            <h4 style="margin: 0 0 6px; font-size: clamp(18px, 2.1vw, 21px);">Extract sourced facts</h4>
+            <p style="margin: 0; font-size: 15px; line-height: 1.6; max-width: 60ch; color: color-mix(in srgb, var(--color-text) 80%, transparent);">One AI step pulls out verified facts, each with the URL it came from.</p>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: minmax(56px, 90px) 1fr; gap: clamp(16px, 3vw, 36px); padding: clamp(18px, 2.6vw, 28px) 0; border-top: 1px solid var(--color-divider); border-bottom: 2px solid var(--color-divider);">
+          <div style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(28px, 3.6vw, 40px); line-height: 0.9; letter-spacing: -0.03em; color: var(--color-accent);">05</div>
+          <div>
+            <h4 style="margin: 0 0 6px; font-size: clamp(18px, 2.1vw, 21px);">Write and post the brief</h4>
+            <p style="margin: 0; font-size: 15px; line-height: 1.6; max-width: 60ch; color: color-mix(in srgb, var(--color-text) 80%, transparent);">A second AI step writes a headline, overview, talking points, how to reach them and what&rsquo;s still unknown. It is posted as a note on the company with <code>POST /crm/v3/objects/notes</code>.</p>
+          </div>
+        </div>
+      </div>
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+        <figure style="margin: 0;">
+          <div style="border: 2px solid var(--color-text);"><img src="uploads/outbound/n8n-website-research.png" alt="n8n website research section: Jina, URL selector and validation" style="display: block; width: 100%; height: auto;"></div>
+          <figcaption style="font-size: 13px; margin-top: 10px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">Website research: Jina reads the site, AI picks the pages, invented URLs are rejected.</figcaption>
+        </figure>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; align-items: start;">
+          <figure style="margin: 0;">
+          <div style="border: 2px solid var(--color-text);"><img src="uploads/outbound/n8n-sales-brief-section.png" alt="n8n sales brief section posting a note to HubSpot" style="display: block; width: 100%; height: auto;"></div>
+          <figcaption style="font-size: 13px; margin-top: 10px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">AI extracts sourced facts and writes the sales brief.</figcaption>
+        </figure>
+          <figure style="margin: 0;">
+          <div style="border: 2px solid var(--color-text);"><img src="uploads/outbound/n8n-run-research-brief.png" alt="Successful n8n run: 6 pages read, combined, brief written and note created" style="display: block; width: 100%; height: auto;"></div>
+          <figcaption style="font-size: 13px; margin-top: 10px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">A successful run: 6 pages read, combined, brief posted to HubSpot.</figcaption>
+        </figure>
+        </div>
+      </div>
+    </section>
+
+    <section style="border-top: 2px solid var(--color-divider); padding: clamp(44px, 6vw, 80px) 0;">
+      <h6 style="color: var(--color-accent); margin-bottom: 14px;">06 &mdash; Results</h6>
+      <h2 style="font-size: clamp(26px, 3.4vw, 36px); margin-bottom: 20px; max-width: 26ch;">What the tests showed.</h2>
+      <div style="margin-bottom: clamp(32px, 4vw, 48px);">
+        <ul style="margin: 0; padding-left: 20px; font-size: 15px; line-height: 1.6; display: flex; flex-direction: column; gap: 6px; max-width: 64ch;"><li>A contact at a practice with an open deal was <strong>Blocked, reason: Open deal</strong>.</li><li>A contact at a practice with no deal was <strong>Approved</strong>.</li><li>Both decisions were logged to <span class="kw">PostgreSQL</span>.</li><li>Tested on a real Manchester dental practice&rsquo;s website, the brief found the number of dentists and staff, the services offered, prices, the finance provider, a current patient offer and concrete talking points. It appeared on the company record in HubSpot.</li></ul>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 24px; align-items: start; margin-bottom: clamp(32px, 4vw, 48px);">
+        <figure style="margin: 0;">
+          <div style="border: 2px solid var(--color-text); background: #fff; display: flex; justify-content: center;"><img src="uploads/outbound/hubspot-contact-blocked.png" alt="HubSpot contact with Outbound status Blocked and reason Open deal" style="display: block; max-width: 100%; height: auto;"></div>
+          <figcaption style="font-size: 13px; margin-top: 10px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">Result in HubSpot: Blocked, reason Open deal.</figcaption>
+        </figure>
+        <figure style="margin: 0;">
+          <div style="border: 2px solid var(--color-text); background: #fff; display: flex; justify-content: center;"><img src="uploads/outbound/hubspot-contact-approved.png" alt="HubSpot contact with Outbound status Approved" style="display: block; max-width: 100%; height: auto;"></div>
+          <figcaption style="font-size: 13px; margin-top: 10px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">Result in HubSpot: Approved.</figcaption>
+        </figure>
+        <figure style="margin: 0;">
+          <div style="border: 2px solid var(--color-text); background: #fff;"><img src="uploads/outbound/sales-brief-note-1.png" alt="Sales brief note on a HubSpot company record" style="display: block; width: 100%; height: auto;"></div>
+          <figcaption style="font-size: 13px; margin-top: 10px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">The sales brief on the company record in HubSpot.</figcaption>
+        </figure>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px; align-items: start;">
+        <figure style="margin: 0;">
+          <div style="border: 2px solid var(--color-text); background: #fff;"><img src="uploads/outbound/sales-brief-note-2.png" alt="Sales brief detailed findings: business overview and services" style="display: block; width: 100%; height: auto;"></div>
+          <figcaption style="font-size: 13px; margin-top: 10px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">Detailed findings: business overview and services.</figcaption>
+        </figure>
+        <figure style="margin: 0;">
+          <div style="border: 2px solid var(--color-text); background: #fff;"><img src="uploads/outbound/sales-brief-note-3.png" alt="Sales brief detailed findings: pricing, offers, credibility and technology" style="display: block; width: 100%; height: auto;"></div>
+          <figcaption style="font-size: 13px; margin-top: 10px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">Detailed findings: pricing, offers, credibility and technology.</figcaption>
+        </figure>
+      </div>
+      <p style="font-size: 13px; margin: 16px 0 0; color: color-mix(in srgb, var(--color-text) 55%, transparent);">Tested on a real Manchester dental practice&rsquo;s website. The practice name and identifying details are redacted.</p>
+    </section>
+
+    <section style="border-top: 2px solid var(--color-divider); padding: clamp(44px, 6vw, 80px) 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: clamp(28px, 4vw, 56px);">
+      <div>
+        <h6 style="color: var(--color-accent); margin-bottom: 14px;">07 &mdash; Security</h6>
+        <h2 style="font-size: clamp(26px, 3.4vw, 36px); margin-bottom: 20px; max-width: 26ch;">Least-privilege access.</h2>
+        <p style="font-size: 15px; line-height: 1.6; max-width: 52ch; margin: 0;">A HubSpot service key with only the scopes the workflow needs, stored in <span class="kw">n8n</span> as a Bearer credential restricted to <code>api.hubapi.com</code>. Every API call was tested in <span class="kw">Postman</span> first.</p>
+      </div>
+      <div>
+        <h6 style="color: var(--color-accent); margin-bottom: 14px;">08 &mdash; Tech stack</h6>
+        <h2 style="font-size: clamp(26px, 3.4vw, 36px); margin-bottom: 20px; max-width: 26ch;">Tools used.</h2>
+        <table class="table">
+          <tbody>
+            <tr><td style="font-weight: 600; width: 42%;">Orchestration</td><td><span class="kw">n8n</span> (self-hosted)</td></tr>
+            <tr><td style="font-weight: 600;">CRM</td><td><span class="kw">HubSpot REST API</span> (v3, v4 associations)</td></tr>
+            <tr><td style="font-weight: 600;">Code</td><td><span class="kw">JavaScript</span></td></tr>
+            <tr><td style="font-weight: 600;">Database</td><td><span class="kw">PostgreSQL</span> &middot; <span class="kw">SQL</span> &middot; DBeaver</td></tr>
+            <tr><td style="font-weight: 600;">Web research</td><td>Jina Reader</td></tr>
+            <tr><td style="font-weight: 600;">AI</td><td>Google Gemini</td></tr>
+            <tr><td style="font-weight: 600;">API testing</td><td>Postman</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </div>
+
+  <footer style="border-top: 2px solid var(--color-divider);">
+    <div style="max-width: 1180px; margin: 0 auto; padding: clamp(32px, 5vw, 56px) clamp(20px, 5vw, 56px);">
+      <div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between;">
+        <div>
+          <div style="font-family: var(--font-heading); font-weight: 800; font-size: 20px; margin-bottom: 4px;">n8n Integration: HubSpot Safety Gate &amp; AI Sales Brief.</div>
+          <div style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 55%, transparent);">Built with n8n, the HubSpot API, PostgreSQL &amp; Google Gemini</div>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+          <a class="btn btn-secondary" href="index.html" style="padding: 12px 20px; font-size: 14px;">Back to home</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+</body>
+</html>

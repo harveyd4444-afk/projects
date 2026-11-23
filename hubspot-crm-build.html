@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>HubSpot CRM Build</title>
+<link rel="stylesheet" href="css/styles.css">
+<style>
+body { margin: 0; }
+.btn { white-space: nowrap; }
+.tag { white-space: nowrap; }
+[data-band] { grid-template-columns: repeat(4, minmax(0, 1fr)) !important; }
+@media (max-width: 900px) { [data-band] { grid-template-columns: repeat(2, minmax(0, 1fr)) !important; } }
+@media (max-width: 440px) { [data-band] { grid-template-columns: minmax(0, 1fr) !important; } }
+a { color: var(--color-accent); }
+a:hover { color: var(--color-accent-700); }
+</style>
+</head>
+<body>
+<div style="background: var(--color-bg); color: var(--color-text); font-family: var(--font-body); min-height: 100vh;">
+
+  <div class="nav" style="position: sticky; top: 0; z-index: 10; background: var(--color-bg); display: flex; flex-wrap: wrap;">
+    <a class="nav-brand" href="index.html" style="text-decoration: none; color: inherit;">Automation Portfolio</a>
+    <span style="font-size: 12px; letter-spacing: 0.08em; text-transform: uppercase; color: color-mix(in srgb, var(--color-text) 55%, transparent);">CRM &amp; HubSpot &middot; CRM build</span>
+  </div>
+
+  <div style="max-width: 1180px; margin: 0 auto; padding: 0 clamp(20px, 5vw, 56px);">
+
+    <header style="padding: clamp(40px, 7vw, 88px) 0 clamp(28px, 4vw, 44px);">
+      <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 24px;">
+        <span class="tag tag-accent">HubSpot CRM</span>
+        <span class="tag tag-neutral">RevOps</span>
+        <span class="tag tag-neutral">Sales automation</span>
+      </div>
+      <h1 style="font-size: clamp(36px, 6.4vw, 70px); line-height: 1.04; letter-spacing: -0.03em; max-width: 20ch; margin: 0 0 20px;">A practice HubSpot CRM build.</h1>
+      <p style="font-size: clamp(15px, 1.7vw, 19px); max-width: 64ch; line-height: 1.65; margin: 0 0 24px; text-wrap: pretty; color: color-mix(in srgb, var(--color-text) 80%, transparent);">A practice build to sharpen my HubSpot skills, not built for a client. It runs in a HubSpot test account, using a synthetic dataset of Greater Manchester dental practices for a fictional lead-generation agency. It covers the data model, a deal pipeline with data-quality rules, workflow automation, a sales dashboard and automated outbound sequences, each tested end to end.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px;">
+        <span class="tag tag-outline">Custom properties</span><span class="tag tag-outline">Imports and associations</span><span class="tag tag-outline">Deal pipelines</span><span class="tag tag-outline">Conditional logic</span><span class="tag tag-outline">Workflows and branching</span><span class="tag tag-outline">Reporting and dashboards</span><span class="tag tag-outline">Sequences and templates</span><span class="tag tag-outline">GDPR settings</span>
+      </div>
+    </header>
+
+    <section style="border-top: 2px solid var(--color-divider); padding-top: clamp(24px, 3vw, 36px);">
+      <h6 style="margin: 0 0 20px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">At a glance</h6>
+      <div data-band="4" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 2px; background: var(--color-bg); border: 2px solid var(--color-text);">
+        <div style="background: var(--color-bg); box-shadow: 0 0 0 1px var(--color-divider); padding: clamp(20px, 3vw, 28px); display: flex; flex-direction: column; gap: 6px;">
+          <div style="width: 40px; height: 6px; background: var(--color-accent); margin-bottom: 12px;"></div>
+          <div style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(34px, 4.4vw, 48px); line-height: 0.95; letter-spacing: -0.03em;">&pound;207,000</div>
+          <div style="font-size: 14px; line-height: 1.4; color: color-mix(in srgb, var(--color-text) 70%, transparent);">across 15 deals in a six-stage pipeline</div>
+        </div>
+        <div style="background: var(--color-bg); box-shadow: 0 0 0 1px var(--color-divider); padding: clamp(20px, 3vw, 28px); display: flex; flex-direction: column; gap: 6px;">
+          <div style="width: 40px; height: 6px; background: var(--color-accent); margin-bottom: 12px;"></div>
+          <div style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(34px, 4.4vw, 48px); line-height: 0.95; letter-spacing: -0.03em;">3</div>
+          <div style="font-size: 14px; line-height: 1.4; color: color-mix(in srgb, var(--color-text) 70%, transparent);">stage rules that stop deals skipping key fields</div>
+        </div>
+        <div style="background: var(--color-bg); box-shadow: 0 0 0 1px var(--color-divider); padding: clamp(20px, 3vw, 28px); display: flex; flex-direction: column; gap: 6px;">
+          <div style="width: 40px; height: 6px; background: var(--color-accent); margin-bottom: 12px;"></div>
+          <div style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(34px, 4.4vw, 48px); line-height: 0.95; letter-spacing: -0.03em;">5</div>
+          <div style="font-size: 14px; line-height: 1.4; color: color-mix(in srgb, var(--color-text) 70%, transparent);">reports on one sales overview dashboard</div>
+        </div>
+        <div style="background: var(--color-accent); color: var(--color-bg); box-shadow: 0 0 0 1px var(--color-divider); padding: clamp(20px, 3vw, 28px); display: flex; flex-direction: column; gap: 6px;">
+          <div style="width: 40px; height: 6px; background: var(--color-bg); margin-bottom: 12px;"></div>
+          <div style="font-family: var(--font-heading); font-weight: 800; font-size: clamp(34px, 4.4vw, 48px); line-height: 0.95; letter-spacing: -0.03em;">2</div>
+          <div style="font-size: 14px; line-height: 1.4;">tiered outbound sequences with automated hand-off</div>
+        </div>
+      </div>
+    </section>
+
+    <section style="border-top: 2px solid var(--color-divider); padding: clamp(44px, 6vw, 80px) 0; margin-top: clamp(44px, 6vw, 80px);">
+      <h6 style="color: var(--color-accent); margin-bottom: 14px;">01 &mdash; Data model and imports</h6>
+      <h2 style="font-size: clamp(26px, 3.4vw, 36px); margin-bottom: 12px; max-width: 28ch;">A CRM shaped around how the agency qualifies practices.</h2>
+      <p style="font-size: 16px; line-height: 1.65; max-width: 66ch; margin: 0 0 clamp(28px, 4vw, 40px); color: color-mix(in srgb, var(--color-text) 80%, transparent);">I added custom company properties for ICP score, Private vs NHS, practice size and data source, then imported companies and contacts and linked each contact to its practice. Data source is a dropdown with fixed values rather than free text, so reports group cleanly instead of splitting on spelling differences.</p>
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 24px; align-items: start;"><figure style="margin: 0;">
+          <div style="border: 2px solid var(--color-text); background: #fff;"><img src="uploads/hubspot-crm/companies.png" alt="HubSpot companies list showing Private vs NHS, phone, ICP score and city columns" style="display: block; width: 100%; height: auto; margin: 0 auto;"></div>
+          <figcaption style="font-size: 13px; margin-top: 10px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">Companies with custom ICP score, Private vs NHS and practice size properties.</figcaption>
+        </figure><figure style="margin: 0;">
+          <div style="border: 2px solid var(--color-text); background: #fff;"><img src="uploads/hubspot-crm/contacts.png" alt="HubSpot contacts list with email, phone and lead status" style="display: block; width: 100%; height: auto; margin: 0 auto;"></div>
+          <figcaption style="font-size: 13px; margin-top: 10px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">Imported contacts, each linked to its practice and given a lead status.</figcaption>
+        </figure></div>
+        <div style="max-width: 900px;"><figure style="margin: 0;">
+          <div style="border: 2px solid var(--color-text); background: #fff;"><img src="uploads/hubspot-crm/data-source-property.png" alt="Data source dropdown property with seven options and internal names" style="display: block; width: 100%; height: auto; margin: 0 auto;"></div>
+          <figcaption style="font-size: 13px; margin-top: 10px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">The Data source property: seven fixed options, each with its internal name for API and import use.</figcaption>
+        </figure></div>
+      </div>
+    </section>
+
+    <section style="border-top: 2px solid var(--color-divider); padding: clamp(44px, 6vw, 80px) 0;">
+      <h6 style="color: var(--color-accent); margin-bottom: 14px;">02 &mdash; Deal pipeline</h6>
+      <h2 style="font-size: clamp(26px, 3.4vw, 36px); margin-bottom: 12px; max-width: 28ch;">A six-stage pipeline with rules that keep the data clean.</h2>
+      <p style="font-size: 16px; line-height: 1.65; max-width: 66ch; margin: 0 0 clamp(28px, 4vw, 40px); color: color-mix(in srgb, var(--color-text) 80%, transparent);">The Lead-gen retainers pipeline runs Discovery call, Proposal sent, Negotiation, Contract sent, Closed won and Closed lost. I loaded 15 deals worth &pound;207,000: &pound;157,200 open, &pound;32,400 closed won and &pound;17,400 closed lost. Each deal is linked to its practice and a named contact, and stage probabilities rise as deals progress, which feeds the weighted forecast.</p>
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+        <div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start;"><div style="flex: 1 1 300px; min-width: 0;"><div style="border: 2px solid var(--color-text); background: var(--color-bg); padding: clamp(18px, 2.6vw, 24px);">
+          <h4 style="margin: 0 0 10px; font-size: 18px;">Data-quality rules by stage</h4>
+          <ul style="margin: 0; padding-left: 20px; font-size: 15px; line-height: 1.6; display: flex; flex-direction: column; gap: 8px; color: color-mix(in srgb, var(--color-text) 80%, transparent);"><li><strong>Proposal sent:</strong> Amount is required.</li><li><strong>Negotiation:</strong> Close date is required.</li><li><strong>Closed lost:</strong> a Lost reason dropdown is required (Price too high, No response, Chose another agency, Not a fit, Bad timing), so loss data is reportable rather than free text.</li></ul>
+        </div></div><div style="flex: 2 1 520px; min-width: 0;"><figure style="margin: 0;">
+          <div style="border: 2px solid var(--color-text); background: #fff;"><img src="uploads/hubspot-crm/pipeline-stages.png" alt="Pipeline stages with descriptions and probabilities from 20% to won and lost" style="display: block; width: 100%; height: auto; margin: 0 auto;"></div>
+          <figcaption style="font-size: 13px; margin-top: 10px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">Each stage has a written description of what must be true, and a probability for forecasting.</figcaption>
+        </figure></div></div>
+        <figure style="margin: 0;">
+          <div style="border: 2px solid var(--color-text); background: #fff;"><img src="uploads/hubspot-crm/conditional-logic.png" alt="Pipeline settings showing a conditional logic rule on the Negotiation stage that requires close date" style="display: block; width: 100%; height: auto; margin: 0 auto;"></div>
+          <figcaption style="font-size: 13px; margin-top: 10px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">Conditional logic: moving a deal to Negotiation requires a close date.</figcaption>
+        </figure>
+        <figure style="margin: 0;">
+          <div style="border: 2px solid var(--color-text); background: #fff;"><img src="uploads/hubspot-crm/deal-board.png" alt="Deal board with 15 deals across six stages and weighted amounts per stage" style="display: block; width: 100%; height: auto; margin: 0 auto;"></div>
+          <figcaption style="font-size: 13px; margin-top: 10px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">The deal board, with total and weighted amounts under every stage.</figcaption>
+        </figure>
+      </div>
+    </section>
+
+    <section style="border-top: 2px solid var(--color-divider); padding: clamp(44px, 6vw, 80px) 0;">
+      <h6 style="color: var(--color-accent); margin-bottom: 14px;">03 &mdash; Workflow automation</h6>
+      <h2 style="font-size: clamp(26px, 3.4vw, 36px); margin-bottom: 12px; max-width: 28ch;">Routing, scoring and data quality without manual checking.</h2>
+      <p style="font-size: 16px; line-height: 1.65; max-width: 66ch; margin: 0 0 clamp(28px, 4vw, 40px); color: color-mix(in srgb, var(--color-text) 80%, transparent);">Practices scoring above 70 move to Marketing Qualified Lead and get a follow-up task, with larger practices given a high-priority task. Practices scoring 70 or below are routed to a second owner. A data-quality workflow flags missing or badly formatted details, records the problem on the record and gives the owner a task that says exactly what to fix. On the test data it flagged 10 of 30 practices.</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start;"><div style="flex: 2 1 520px; min-width: 0;"><figure style="margin: 0;">
+          <div style="border: 2px solid var(--color-text); background: #fff;"><img src="uploads/hubspot-crm/data-quality-workflow.png" alt="Workflow branching on missing phone, missing website and bad website format, each appending to a data quality property and creating a task" style="display: block; width: 100%; height: auto; margin: 0 auto;"></div>
+          <figcaption style="font-size: 13px; margin-top: 10px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">Each branch tags the company in a Data quality issues property and creates a specific task for its owner.</figcaption>
+        </figure></div><div style="flex: 1 1 300px; min-width: 0;"><div style="border: 2px solid var(--color-accent); background: color-mix(in srgb, var(--color-accent) 8%, var(--color-bg)); padding: clamp(18px, 2.6vw, 24px);">
+          <h4 style="margin: 0 0 10px; font-size: 18px;">Why a property as well as a task</h4>
+          <p style="margin: 0; font-size: 15px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 80%, transparent);">A task is a to-do that disappears once ticked off. The Data quality issues property stays on the record, so problems can be filtered, counted and reported on, for example how many practices are missing a phone number.</p>
+        </div></div></div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; align-items: start; margin-top: 24px;"><figure style="margin: 0;">
+          <div style="border: 2px solid var(--color-text); background: #fff;"><img src="uploads/hubspot-crm/workflow-size-branch.png" alt="High-ICP workflow: set lifecycle stage to MQL, then branch on practice size into two tasks" style="display: block; max-width: 100%; width: auto; height: auto; margin: 0 auto;"></div>
+          <figcaption style="font-size: 13px; margin-top: 10px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">High-ICP workflow: set to MQL, then branch on practice size.</figcaption>
+        </figure><figure style="margin: 0;">
+          <div style="border: 2px solid var(--color-text); background: #fff;"><img src="uploads/hubspot-crm/workflow-reminder.png" alt="Large-practice branch with a 2-business-day delay and a check on Last contacted" style="display: block; max-width: 100%; width: auto; height: auto; margin: 0 auto;"></div>
+          <figcaption style="font-size: 13px; margin-top: 10px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">Large practices: a 2-business-day delay, then a reminder if nobody has made contact.</figcaption>
+        </figure><figure style="margin: 0;">
+          <div style="border: 2px solid var(--color-text); background: #fff;"><img src="uploads/hubspot-crm/company-mql.png" alt="Company record showing lifecycle stage Marketing Qualified Lead" style="display: block; max-width: 100%; width: auto; height: auto; margin: 0 auto;"></div>
+          <figcaption style="font-size: 13px; margin-top: 10px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">The result on a company record: Marketing Qualified Lead.</figcaption>
+        </figure></div><div style="margin-top: 24px;"><figure style="margin: 0;">
+          <div style="border: 2px solid var(--color-text); background: #fff;"><img src="uploads/hubspot-crm/high-icp-tasks.png" alt="Task list of follow-up tasks created for high-ICP dental practices" style="display: block; width: 100%; height: auto; margin: 0 auto;"></div>
+          <figcaption style="font-size: 13px; margin-top: 10px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">Follow-up tasks the workflow created for high-ICP practices.</figcaption>
+        </figure></div>
+    </section>
+
+    <section style="border-top: 2px solid var(--color-divider); padding: clamp(44px, 6vw, 80px) 0;">
+      <h6 style="color: var(--color-accent); margin-bottom: 14px;">04 &mdash; Reporting</h6>
+      <h2 style="font-size: clamp(26px, 3.4vw, 36px); margin-bottom: 12px; max-width: 28ch;">A sales overview dashboard, and how to read it.</h2>
+      <p style="font-size: 16px; line-height: 1.65; max-width: 66ch; margin: 0 0 clamp(28px, 4vw, 40px); color: color-mix(in srgb, var(--color-text) 80%, transparent);">Five reports on one dashboard, each paired with the action it should prompt.</p>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; align-items: start;"><div style="border: 2px solid var(--color-text); background: var(--color-bg); padding: clamp(18px, 2.6vw, 24px);">
+          <h4 style="margin: 0 0 10px; font-size: 18px;">Companies by lifecycle stage</h4>
+          <p style="margin: 0; font-size: 15px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 80%, transparent);">8 Lead, 7 Marketing Qualified, 13 Opportunity, 2 Customer. If leads pile up while MQLs stay low, qualification is stalling: review the ICP threshold or follow up faster.</p>
+        </div><div style="border: 2px solid var(--color-text); background: var(--color-bg); padding: clamp(18px, 2.6vw, 24px);">
+          <h4 style="margin: 0 0 10px; font-size: 18px;">Pipeline value by stage</h4>
+          <p style="margin: 0; font-size: 15px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 80%, transparent);">&pound;157,200 open, with the most (&pound;54,000) still at Discovery call. A thin middle means too few deals reach Negotiation, so the focus is moving Discovery deals forward.</p>
+        </div><div style="border: 2px solid var(--color-text); background: var(--color-bg); padding: clamp(18px, 2.6vw, 24px);">
+          <h4 style="margin: 0 0 10px; font-size: 18px;">Companies by data source</h4>
+          <p style="margin: 0; font-size: 15px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 80%, transparent);">Shows which channels produce leads: more effort into the strongest source, and questions for the weakest.</p>
+        </div><div style="border: 2px solid var(--color-text); background: var(--color-bg); padding: clamp(18px, 2.6vw, 24px);">
+          <h4 style="margin: 0 0 10px; font-size: 18px;">Upcoming renewals</h4>
+          <p style="margin: 0; font-size: 15px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 80%, transparent);">&pound;13,200 renews in March 2027 and &pound;19,200 in June 2027, so both clients get contacted a few months ahead.</p>
+        </div><div style="border: 2px solid var(--color-text); background: var(--color-bg); padding: clamp(18px, 2.6vw, 24px);">
+          <h4 style="margin: 0 0 10px; font-size: 18px;">Churn by lost reason</h4>
+          <p style="margin: 0; font-size: 15px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 80%, transparent);">One deal lost to price and one to no response. A pattern of price losses would mean reviewing pricing; no response points to better follow-up.</p>
+        </div><div style="border: 2px solid var(--color-accent); background: color-mix(in srgb, var(--color-accent) 8%, var(--color-bg)); padding: clamp(18px, 2.6vw, 24px);">
+          <h4 style="margin: 0 0 10px; font-size: 18px;">Discrepancy found and explained</h4>
+          <p style="margin: 0; font-size: 15px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 80%, transparent);">The lifecycle chart showed 13 Opportunity practices but only 11 open deals. HubSpot doesn&rsquo;t move lifecycle stages backwards, so practices with lost deals stayed at Opportunity.</p>
+        </div></div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; align-items: start; margin-top: 24px;"><figure style="margin: 0;">
+          <div style="border: 2px solid var(--color-text); background: #fff;"><img src="uploads/hubspot-crm/dashboard-churn.png" alt="Churn by lost reason report: one deal lost to price, one to no response" style="display: block; width: 100%; height: auto; margin: 0 auto;"></div>
+          <figcaption style="font-size: 13px; margin-top: 10px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">Churn by lost reason.</figcaption>
+        </figure><figure style="margin: 0;">
+          <div style="border: 2px solid var(--color-text); background: #fff;"><img src="uploads/hubspot-crm/dashboard-source-renewals.png" alt="Companies by data source and upcoming renewals reports" style="display: block; width: 100%; height: auto; margin: 0 auto;"></div>
+          <figcaption style="font-size: 13px; margin-top: 10px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">Companies by data source, and upcoming renewals by month.</figcaption>
+        </figure></div>
+    </section>
+
+    <section style="border-top: 2px solid var(--color-divider); padding: clamp(44px, 6vw, 80px) 0;">
+      <h6 style="color: var(--color-accent); margin-bottom: 14px;">05 &mdash; Outbound sequences</h6>
+      <h2 style="font-size: clamp(26px, 3.4vw, 36px); margin-bottom: 12px; max-width: 28ch;">Tiered outreach that hands replies straight to sales.</h2>
+      <p style="font-size: 16px; line-height: 1.65; max-width: 66ch; margin: 0 0 clamp(28px, 4vw, 40px); color: color-mix(in srgb, var(--color-text) 80%, transparent);">Two sequences match effort to account value. Tier 1, for practices with 8 or more dentists, runs five steps: an intro email, a LinkedIn task, a call task, a follow-up and a break-up email. Tier 2, for smaller practices, sends three emails. Templates use personalisation tokens with fallbacks, follow-ups reply in the same thread, sending is limited to UK business hours, and contacts are unenrolled automatically when they reply or book a meeting.</p>
+      <div style="display: flex; flex-direction: column; gap: 24px;">
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; align-items: start;"><figure style="margin: 0;">
+          <div style="border: 2px solid var(--color-text); background: #fff;"><img src="uploads/hubspot-crm/tier1-sequence-1.png" alt="Tier 1 sequence: automated email, LinkedIn task, call task and follow-up email with business-day delays" style="display: block; width: 100%; height: auto; margin: 0 auto;"></div>
+          <figcaption style="font-size: 13px; margin-top: 10px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">Tier 1 sequence: email, LinkedIn and call steps spaced by business days.</figcaption>
+        </figure><figure style="margin: 0;">
+          <div style="border: 2px solid var(--color-text); background: #fff;"><img src="uploads/hubspot-crm/tier1-sequence-2.png" alt="Tier 1 sequence continued: follow-up and break-up emails sent as replies" style="display: block; width: 100%; height: auto; margin: 0 auto;"></div>
+          <figcaption style="font-size: 13px; margin-top: 10px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">Follow-up and break-up emails are sent as replies in the original thread.</figcaption>
+        </figure></div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; align-items: start;"><figure style="margin: 0;">
+          <div style="border: 2px solid var(--color-text); background: #fff;"><img src="uploads/hubspot-crm/enrolment-preview.png" alt="Enrolment preview showing the personalised opener and practice name filled in" style="display: block; width: 100%; height: auto; margin: 0 auto;"></div>
+          <figcaption style="font-size: 13px; margin-top: 10px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">Enrolment preview: the personalised opener and practice name are filled in from CRM properties.</figcaption>
+        </figure><figure style="margin: 0;">
+          <div style="border: 2px solid var(--color-text); background: #fff;"><img src="uploads/hubspot-crm/intro-email-inbox.png" alt="The intro email received in the test inbox, in the Focused tab" style="display: block; width: 100%; height: auto; margin: 0 auto;"></div>
+          <figcaption style="font-size: 13px; margin-top: 10px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">The intro email as received in a test inbox: Focused, not junk.</figcaption>
+        </figure></div>
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 24px; align-items: start;"><figure style="margin: 0;">
+          <div style="border: 2px solid var(--color-text); background: #fff;"><img src="uploads/hubspot-crm/template-t1-intro.png" alt="T1-1 intro email template with personalisation tokens and preview" style="display: block; width: 100%; height: auto; margin: 0 auto;"></div>
+          <figcaption style="font-size: 13px; margin-top: 10px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">T1-1 intro template: company name and personalised opener tokens, with a live preview.</figcaption>
+        </figure><figure style="margin: 0;">
+          <div style="border: 2px solid var(--color-text); background: #fff;"><img src="uploads/hubspot-crm/template-t1-followup.png" alt="T1-2 follow-up email template sent as a reply" style="display: block; width: 100%; height: auto; margin: 0 auto;"></div>
+          <figcaption style="font-size: 13px; margin-top: 10px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">T1-2 follow-up template, sent as a reply in the same thread.</figcaption>
+        </figure></div>
+        <div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start;"><div style="flex: 1 1 300px; min-width: 0;"><div style="border: 2px solid var(--color-text); background: var(--color-bg); padding: clamp(18px, 2.6vw, 24px);">
+          <h4 style="margin: 0 0 10px; font-size: 18px;">The hand-off workflows</h4>
+          <ul style="margin: 0; padding-left: 20px; font-size: 15px; line-height: 1.6; display: flex; flex-direction: column; gap: 8px; color: color-mix(in srgb, var(--color-text) 80%, transparent);"><li><strong>Enrol by tier:</strong> approved contacts are branched on practice size and enrolled in Tier 1 or Tier 2.</li><li><strong>Reply hand-off:</strong> a reply sets the contact to Replied and Connected, and creates a deal at Discovery call named after the practice.</li><li><strong>No reply:</strong> when the sequence ends without a reply, the contact moves to Nurture.</li><li><strong>Safety check:</strong> contacts at practices that are customers, mid-deal or opted out are blocked before any email is sent.</li></ul>
+        </div></div><div style="flex: 0 1 240px; min-width: 0;"><figure style="margin: 0;">
+          <div style="border: 2px solid var(--color-text); background: #fff;"><img src="uploads/hubspot-crm/enrol-by-tier.png" alt="Enrol by tier workflow branching on practice size into two sequences" style="display: block; width: 100%; height: auto; margin: 0 auto;"></div>
+          <figcaption style="font-size: 13px; margin-top: 10px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">Enrol by tier.</figcaption>
+        </figure></div><div style="flex: 0 1 150px; min-width: 0;"><figure style="margin: 0;">
+          <div style="border: 2px solid var(--color-text); background: #fff;"><img src="uploads/hubspot-crm/reply-handoff.png" alt="Reply hand-off workflow setting statuses and creating a deal" style="display: block; width: 100%; height: auto; margin: 0 auto;"></div>
+          <figcaption style="font-size: 13px; margin-top: 10px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">Reply hand-off.</figcaption>
+        </figure></div></div>
+        <div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: flex-start;"><div style="flex: 1 1 300px; min-width: 0;"><figure style="margin: 0;">
+          <div style="border: 2px solid var(--color-text); background: #fff;"><img src="uploads/hubspot-crm/test-reply.png" alt="A test prospect replying asking to talk on Thursday" style="display: block; width: 100%; height: auto; margin: 0 auto;"></div>
+          <figcaption style="font-size: 13px; margin-top: 10px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">A test reply from the prospect&rsquo;s inbox.</figcaption>
+        </figure></div><div style="flex: 2 1 460px; min-width: 0;"><figure style="margin: 0;">
+          <div style="border: 2px solid var(--color-text); background: #fff;"><img src="uploads/hubspot-crm/reply-result.png" alt="Contact record showing the reply summarised and a new deal at Discovery call" style="display: block; width: 100%; height: auto; margin: 0 auto;"></div>
+          <figcaption style="font-size: 13px; margin-top: 10px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">The result in HubSpot: the sequence stopped, the reply was logged and a deal was created at Discovery call.</figcaption>
+        </figure></div><div style="flex: 0 1 220px; min-width: 0;"><figure style="margin: 0;">
+          <div style="border: 2px solid var(--color-text); background: #fff;"><img src="uploads/hubspot-crm/contact-blocked.png" alt="Contact record with Outbound status set to Blocked" style="display: block; width: 100%; height: auto; margin: 0 auto;"></div>
+          <figcaption style="font-size: 13px; margin-top: 10px; color: color-mix(in srgb, var(--color-text) 60%, transparent);">A contact at a practice with an open deal, blocked before outreach.</figcaption>
+        </figure></div></div>
+        <div style="max-width: 760px;"><div style="border: 2px solid var(--color-accent); background: color-mix(in srgb, var(--color-accent) 8%, var(--color-bg)); padding: clamp(18px, 2.6vw, 24px);">
+          <h4 style="margin: 0 0 10px; font-size: 18px;">GDPR in practice</h4>
+          <p style="margin: 0; font-size: 15px; line-height: 1.6; color: color-mix(in srgb, var(--color-text) 80%, transparent);">With data privacy settings on, HubSpot refused to enrol contacts until each had a lawful basis and a one-to-one email subscription recorded. Setting both is now part of the contact setup.</p>
+        </div></div>
+      </div>
+    </section>
+
+    <section style="border-top: 2px solid var(--color-divider); padding: clamp(44px, 6vw, 80px) 0;">
+      <h6 style="color: var(--color-accent); margin-bottom: 14px;">06 &mdash; What I&rsquo;d improve</h6>
+      <ol style="list-style: none; padding: 0; margin: 0 0 24px; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 0 40px;">
+        <li style="display: grid; grid-template-columns: 34px 1fr; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--color-divider); font-size: 15px;"><span style="font-family: var(--font-heading); font-weight: 800; color: var(--color-accent);">01</span><span>An onboarding pipeline for won deals, so delivery is tracked separately from sales.</span></li>
+        <li style="display: grid; grid-template-columns: 34px 1fr; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--color-divider); font-size: 15px;"><span style="font-family: var(--font-heading); font-weight: 800; color: var(--color-accent);">02</span><span>Stage exit criteria that say what must be true to leave each stage, not just which fields are filled.</span></li>
+        <li style="display: grid; grid-template-columns: 34px 1fr; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--color-divider); font-size: 15px;"><span style="font-family: var(--font-heading); font-weight: 800; color: var(--color-accent);">03</span><span>Sync contact owners when a practice is reassigned, so the people at a practice move with it.</span></li>
+        <li style="display: grid; grid-template-columns: 34px 1fr; gap: 14px; padding: 14px 0; border-bottom: 1px solid var(--color-divider); font-size: 15px;"><span style="font-family: var(--font-heading); font-weight: 800; color: var(--color-accent);">04</span><span>Time-in-stage and activity reports once there is real activity history to measure.</span></li>
+      </ol>
+      <p style="margin: 0; font-size: 13px; color: color-mix(in srgb, var(--color-text) 55%, transparent);">All CRM data on this page is synthetic, created for this portfolio. Built by Harvey Duncan.</p>
+    </section>
+  </div>
+
+  <footer style="border-top: 2px solid var(--color-divider);">
+    <div style="max-width: 1180px; margin: 0 auto; padding: clamp(32px, 5vw, 56px) clamp(20px, 5vw, 56px);">
+      <div style="display: flex; flex-wrap: wrap; gap: 24px; align-items: center; justify-content: space-between;">
+        <div>
+          <div style="font-family: var(--font-heading); font-weight: 800; font-size: 20px; margin-bottom: 4px;">HubSpot CRM Build.</div>
+          <div style="font-size: 13px; color: color-mix(in srgb, var(--color-text) 55%, transparent);">Data model, pipeline, workflows, reporting and sequences in HubSpot</div>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 12px;">
+          <a class="btn btn-secondary" href="index.html" style="padding: 12px 20px; font-size: 14px;">Back to home</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</div>
+</body>
+</html>
